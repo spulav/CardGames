@@ -1,5 +1,6 @@
 package Deck;
 import java.util.ArrayList;
+import java.util.Collections;
 import Cards.*;
 
 public class Deck {
@@ -45,18 +46,74 @@ public class Deck {
     }
 
     public void shuffle() {
+        Collections.shuffle(deck);
     }
 
-    public void drawAndDiscard() {
+    public Card pop() {
+        Card card = deck.remove(0);
+        return card;
     }
 
-    public void drawAndPutAtBottom() {
+    public Card remove(int index) {
+        Card card = deck.remove(index);
+        return card;
     }
 
-    public void drawAndReshuffle() {
+    public Card peek() {
+        Card card = deck.get(0);
+        return card;
     }
 
-    // public Deck[] splitDeck(int[] n) { proportions so [0.25,0.25,0.5] would be 3, with the first two a quarter size each and the last 1/2
-    //     ;
-    // }
+    public void add(Card card) {
+        deck.add(card);
+    }
+
+    public void insert(Card card, int index) {
+        deck.add(index, card);
+    }
+
+    public Card get(int index) {
+        Card card = deck.get(index);
+        return card;
+    }
+
+    public Deck[] splitDeck(double[] proportions) { //proportions so [0.25,0.25,0.5] would be 3, with the first two a quarter size each and the last 1/2
+        int howManyDecks = proportions.length;
+        Deck[] decks = new Deck[howManyDecks];
+        int ogSize = deck.size();
+        double[] newSizes = new double[howManyDecks];
+        int cardsAllocated = 0;
+        for (int i = 0; i < proportions.length; i++) { 
+            newSizes[i] = Math.floor(ogSize * proportions[i]);
+            cardsAllocated += (int)newSizes[i];
+        }
+
+        int leftOver = ogSize - cardsAllocated;
+        int j = 0;
+        while (leftOver > 0) {
+            newSizes[j]++;
+            leftOver--;
+            j++;
+        }
+
+        int k = 0;
+        int index = 0;
+        while (k < ogSize) {
+            int incr = (int)newSizes[index];
+            Deck deck_n = new Deck(new ArrayList<Card>(deck.subList(k, k+incr)));
+            decks[index] = deck_n;
+            k = k+incr;
+            index += 1;
+        }
+
+        return decks;
+    }
+
+    public int size() {
+        return deck.size();
+    }
+
+    public void search(String cardName) {
+        ;
+    }
 }

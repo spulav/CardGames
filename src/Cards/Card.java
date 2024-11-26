@@ -12,4 +12,8 @@ public abstract class Card {
         this.color = c;
     }
 
+    public String toString() {
+        return this.name;
+    }
+
 }

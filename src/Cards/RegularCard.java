@@ -16,6 +16,13 @@ public class RegularCard extends Card {
         }
     }
 
+    public static RegularCard RegularCardFromString(String someName) {
+        String[] parts = someName.split(" of ");
+        CardNumber n = CardNumber.valueOf(parts[0]);
+        Suite s = Suite.valueOf(parts[1]);
+        return new RegularCard(n, s);
+    }
+
     public CardNumber get_number() {
         return this.number;
     }
