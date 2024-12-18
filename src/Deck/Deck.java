@@ -113,7 +113,14 @@ public class Deck {
         return deck.size();
     }
 
-    public void search(String cardName) {
-        ;
+    public int search(String cardName) {
+        int i = 0;
+        while (i < deck.size()) {
+            String current = deck.get(i).toString();
+            if (current == cardName) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
